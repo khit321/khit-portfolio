@@ -8,21 +8,19 @@ const projectDetails={equipment:{title:'Equipment Service Hub',text:'A responsiv
 const modal=$('#modalBackdrop');function closeModal(){modal.hidden=true;document.body.style.overflow='';}document.querySelectorAll('.detail').forEach(btn=>btn.addEventListener('click',()=>{const d=projectDetails[btn.dataset.project];$('#modalTitle').textContent=d.title;$('#modalText').textContent=d.text;$('#modalTags').replaceChildren(...d.tags.map(tag=>{const s=document.createElement('span');s.textContent=tag;return s;}));modal.hidden=false;document.body.style.overflow='hidden';$('#modalClose').focus();}));$('#modalClose').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
 const panel=$('#chatPanel'),toggle=$('#chatToggle'),chatInput=$('#chatInput'),messages=$('#chatMessages');function openChat(open){panel.classList.toggle('open',open);panel.setAttribute('aria-hidden',String(!open));toggle.setAttribute('aria-expanded',String(open));if(open)chatInput.focus();else toggle.focus();}toggle.addEventListener('click',()=>openChat(!panel.classList.contains('open')));$('#chatClose').addEventListener('click',()=>openChat(false));
 const starters = [
-  'What kind of engineer is Khit?',
-  'Which project should I look at first?',
-  'Tell me about her Flutter food delivery app',
-  'What did Khit learn during her internship?',
-  'Can she work with both hardware and software?',
-  'How did F&B experience help her engineering work?',
-  'Tell me the hackathon story!',
-  'Why should I hire Khit?'
+  'Why should we hire Khit?',
+  'What did she build during her internship?',
+  'Which project best shows her technical skills?',
+  'How does hospitality help her work in engineering?',
+  'What does she know about Flutter and Arduino?',
+  'How can I contact her?'
 ];
 let history=[];
 let sending=false;
 const suggestions=$('#chatSuggestions');
 function addMessage(text,type){const el=document.createElement('div');el.className=`message ${type}`;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el;}
 function showSuggestions(items){suggestions.replaceChildren();items.forEach(q=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.addEventListener('click',()=>ask(q));suggestions.appendChild(b);});}
-showSuggestions(starters.slice(0,4));
+showSuggestions(starters.slice(0,3));
 async function ask(value){
  const q=value.trim();if(!q || sending)return;
  sending=true;chatInput.value='';addMessage(q,'user');
@@ -35,7 +33,7 @@ async function ask(value){
   typing.remove();addMessage(data.reply,'bot');
   history.push({role:'user',content:q},{role:'assistant',content:data.reply});history=history.slice(-12);
   showSuggestions(Array.isArray(data.suggestions)&&data.suggestions.length?data.suggestions:starters.slice(0,4));
- }catch(err){typing.remove();addMessage('OOPS the AI connection is taking a nap 😭 '+err.message+' Try again in a bit!','bot');showSuggestions(starters.slice(0,4));}
+ }catch(err){typing.remove();addMessage('I couldn’t connect just now. Please try again in a moment.','bot');showSuggestions(starters.slice(0,3));}
  finally{sending=false;chatInput.focus();}
 }
 $('#chatForm').addEventListener('submit',e=>{e.preventDefault();ask(chatInput.value);});

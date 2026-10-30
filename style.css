@@ -32,3 +32,16 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}body{background:#f7fbff;colo
 
 /* Mini Khit personality update */
 .chat-head-profile strong{font-size:15px;color:#124a82}.chat-spark{color:#317dcb}.chat-head-profile small{font-size:11px}.chat-messages{scroll-behavior:smooth}.message{max-width:92%;line-height:1.55;white-space:pre-line}.message.bot{border:1px solid #c8def6;border-radius:5px 15px 15px 15px}.message.user{border-radius:15px 15px 5px 15px}.message.typing{letter-spacing:4px;animation:mini-khit-pulse .9s ease-in-out infinite alternate}.chat-suggestions{max-height:130px}.chat-suggestions button{font-size:11px;border-radius:12px;padding:9px 11px}.chat-suggestions button:focus-visible{outline:2px solid #175caa}@keyframes mini-khit-pulse{from{opacity:.3;transform:translateY(2px)}to{opacity:1;transform:translateY(-2px)}}@media(prefers-reduced-motion:reduce){.message.typing{animation:none}}
+
+/* Mini Khit: understated professional controls */
+.chat-head{align-items:center;gap:12px;padding:15px 16px;background:linear-gradient(105deg,#e7f1fd,#f4f8ff)}
+.chat-head-profile{min-width:0;flex:1}
+.chat-head-profile small{font-size:11px;color:#52708f;font-weight:500}
+.chat-close-button{appearance:none;display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid #c8dbef;border-radius:10px;background:rgba(255,255,255,.8);color:#355b7f;padding:0;line-height:0;transition:background .18s,transform .18s,border-color .18s}
+.chat-close-button .icon{width:16px;height:16px;stroke-width:1.8}
+.chat-close-button:hover{background:#dbeaff;border-color:#93bce8;transform:scale(1.06)}
+.chat-close-button:focus-visible{outline:3px solid #4e91dc;outline-offset:2px}
+.chat-topic-heading{letter-spacing:.5px;font-weight:650;font-size:10px}
+.chat-suggestions button{font-size:12px;font-weight:550;background:#f1f6fe;border-radius:10px}
+.message.bot{border-radius:12px 12px 12px 3px;background:#ecf4ff;line-height:1.55}
+.message.user{border-radius:12px 12px 3px 12px}

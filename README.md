@@ -25,3 +25,9 @@ This is the complete existing blue HTML/CSS/JS portfolio with a **Flask backend 
 - Never commit `.env` or put API keys in client-side HTML/JS.
 - Use a production WSGI server rather than Flask debug mode. Static hosting such as GitHub Pages alone cannot run this backend.
 - Real personal cartoon image is not included; replace the placeholder in `assets/cartoon-avatar.svg` when ready.
+
+
+## Mini Khit tone and recruiter-answer update
+The assistant now defaults to 1–3 sentences, prioritises specific evidence in hiring questions, keeps a more reserved conversational voice, and uses a redesigned blue close control. Change its behaviour in `SYSTEM` in `app.py`; change the chat UI in `index.html` and `style.css`. This is still a generative AI chatbot; suggested questions are examples, not fixed replies.
+
+Career-answering approach informed by the NACE Career Readiness competencies: https://www.naceweb.org/career-readiness/competencies/career-readiness-defined . This external framework is general guidance, not an achievement attributed to Khit.
