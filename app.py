@@ -87,35 +87,94 @@ def static_files(filename):
         return send_from_directory(BASE, filename)
     return jsonify(error='Not found'), 404
 
+
 @app.post('/api/chat')
 def chat():
-    body=request.get_json(silent=True) or {}
-    message=body.get('message')
-    if not isinstance(message,str) or not message.strip() or len(message)>600:
-        return jsonify(error='Message must contain 1–600 characters.'),400
-    if not os.getenv('OPENAI_API_KEY'):
-        return jsonify(error='Set OPENAI_API_KEY in your .env file first.'),503
-    prior=body.get('history',[])
-    clean=[]
-    if isinstance(prior,list):
-        for item in prior[-12:]:
-            if isinstance(item,dict) and item.get('role') in {'user','assistant'} and isinstance(item.get('content'),str):
-                clean.append({'role':item['role'],'content':item['content'][:1200]})
+    body = request.get_json(silent=True) or {}
+    message = body.get('message')
+
+    # 1. Validate the user's message
+    if not isinstance(message, str) or not message.strip() or len(message) > 600:
+        return jsonify(
+            error='Please enter a message under 600 characters.'
+        ), 400
+
+    # 2. Check the OpenAI API key
+    api_key = os.getenv('OPENAI_API_KEY')
+
+    if not api_key:
+        app.logger.error('OPENAI_API_KEY is missing')
+        return jsonify(
+            error='AI service is not configured.'
+        ), 503
+
+    # 3. Keep recent conversation history
+    prior = body.get('history', [])
+    clean = []
+
+    if isinstance(prior, list):
+        for item in prior[-16:]:
+            if (
+                isinstance(item, dict)
+                and item.get('role') in {'user', 'assistant'}
+                and isinstance(item.get('content'), str)
+            ):
+                content = item['content'].strip()[:1200]
+
+                if content:
+                    clean.append({
+                        'role': item['role'],
+                        'content': content
+                    })
+
+    # 4. Generate a natural AI response
     try:
-        client=OpenAI(api_key=os.environ['OPENAI_API_KEY'], timeout=25.0, max_retries=1)
-        response=client.responses.create(
-            model=os.getenv('OPENAI_MODEL','gpt-4.1-mini'),
-            instructions=SYSTEM,
-            input=clean+[{'role':'user','content':message.strip()}],
-            max_output_tokens=190,
+        client = OpenAI(
+            api_key=api_key,
+            timeout=30.0,
+            max_retries=1
         )
-        reply=(response.output_text or '').strip()
+
+        response = client.responses.create(
+            model=os.getenv(
+                'OPENAI_MODEL',
+                'gpt-4.1-mini'
+            ),
+            instructions=SYSTEM,
+            input=clean + [
+                {
+                    'role': 'user',
+                    'content': message.strip()
+                }
+            ],
+            max_output_tokens=300
+        )
+
+        reply = (response.output_text or '').strip()
+
         if not reply:
-            return jsonify(error='The AI returned an empty response.'),502
-        return jsonify(reply=reply,suggestions=FOLLOWUPS)
+            return jsonify(
+                error='Mini Khit could not generate a response.'
+            ), 502
+
+        return jsonify(
+            reply=reply,
+            suggestions=FOLLOWUPS
+        )
+
     except OpenAIError:
         app.logger.exception('OpenAI API error')
-        return jsonify(error='AI service unavailable. Check your API key, credits and model access.'),502
+
+        return jsonify(
+            error='Mini Khit is temporarily unavailable.'
+        ), 502
+
+    except Exception:
+        app.logger.exception('Unexpected chatbot error')
+
+        return jsonify(
+            error='Something went wrong. Please try again.'
+        ), 500
 
 if __name__=='__main__':
     app.run(debug=True)
