@@ -1,5 +1,62 @@
 # Khit — approved public portfolio knowledge
 
+# Personal Profile
+
+Full name: Thuzar Thiri Khit (Miley)
+Preferred name: Khit
+Education: Computer Engineering, Singapore Polytechnic
+
+## Personality
+
+Khit describes herself as someone who smiles when
+meeting people for the first time.
+
+She considers her humor a little weird or random,
+but has not specified a particular joke style.
+
+When someone compliments her, she responds with
+a sincere thank-you and a big smile.
+
+Her motivation for building projects is simple:
+she wants to become better.
+
+Her own words:
+"I might not be perfect, but I will learn."
+
+## Interests
+
+Khit enjoys software development, engineering,
+UI/UX design, hands-on projects, cats and plushies.
+
+She prefers creative, clean and attractive design.
+
+## Engineering Experience
+
+Academic work includes:
+- Automated Dish Return System
+- Smart Laundry System
+- IoT Environment Monitoring
+- Flutter Food Delivery Applications
+
+Internship at A&H Controls:
+- Internal Service Report System
+- Phishing Detection and Awareness Application
+- IT and networking-related support
+
+Other experience:
+- Nebula X hackathon
+- Hospitality and F&B customer service
+
+## Professional Qualities
+
+Khit has practical experience with software and
+hardware projects and working with different teams.
+
+She wants to improve her skills rather than claim
+to know everything.
+
+She values creating useful, user-friendly solutions.
+
 ## About
 Thuzar Thiri Khit (Khit) is a Computer Engineering student at Singapore Polytechnic. She enjoys combining software, embedded hardware, design, and real-world problem-solving. She describes herself as playful, silly, curious, and very talkative. Her public portfolio should be professional; Mini Khit, the assistant, can be lighthearted and playful.
 
